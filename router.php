@@ -17,13 +17,16 @@
                     $mensagem = $ctrl->excluir();
                     break;
                 case "editar":
+                    $mensagem = $ctrl->editar();
+                    break;
+                case "buscar":
                     //implementar editar aqui
                     $item = $ctrl->buscarPorId();
                     echo json_encode($item);
                     break;
                     
             }
-            if($modo != "editar"){
+            if($modo != "buscar"){
                 header("Location: index.php?mensagem=".$mensagem);
             }
             

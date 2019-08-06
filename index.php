@@ -45,7 +45,8 @@
 		<h3>Faça sua compra</h3>
 		<br>
 
-		<form method="post" action="router.php?controller=item_venda&modo=inserir">
+		<form id="form" method="post" action="router.php?controller=item_venda&modo=inserir">
+            <input type="hidden" id="cod_item_venda" name="cod_item_venda">
             <select class="custom-select" id="produto"
 				name="produto">
                 <option selected value="">Selecione o produto</option>
@@ -132,7 +133,7 @@
 	<script>
 		function editar(codItem){
 			$.ajax({
-				url: "router.php?controller=item_venda&modo=editar",
+				url: "router.php?controller=item_venda&modo=buscar",
 				type: "post",
 				data:{
 					cod: codItem
@@ -166,6 +167,9 @@
                 console.log(json.quantidade);
                 $("#qtde").val(json.quantidade);
                 
+                $("#form").attr("action","router.php?controller=item_venda&modo=editar")
+                
+                $("#cod_item_venda").val(json.codItemVenda);
                 
 //                //passando o conteúdo da resposta para json
 //                console.log(itemVenda)

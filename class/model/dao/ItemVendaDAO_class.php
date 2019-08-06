@@ -49,6 +49,22 @@ class ItemVendaDAO extends BaseDAO{
         
         
     }
+    
+    public function editar($itemVenda){
+        $sql = " UPDATE item_venda 
+                SET cod_produto =?,
+                quantidade =  ?,
+                valor_total = ?
+                WHERE cod_item_venda = ?";
+        
+        $smtp = $this->conexao->prepare($sql);
+        $smtp->bindParam(1, $itemVenda->getCod_produto());
+        $smtp->bindParam(2, $itemVenda->getQuantidade());
+        $smtp->bindParam(3, $itemVenda->getValor_total());
+        $smtp->bindParam(4, $itemVenda->getCod_item_venda());
+    
+        return $smtp->execute();
+    }
 
     public function buscarPorId($codItem){
         $sql = " SELECT * FROM item_venda
