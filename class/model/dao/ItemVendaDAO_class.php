@@ -64,7 +64,7 @@ class ItemVendaDAO extends BaseDAO{
     
 
         // retornar uma class do tipo itemVenda, ao invés do fetchAll que traria uma list, como sabemos que só ira trazer um, damos um fetch
-        $item = $stmp->fetch();
+        $item = $smtp->fetch();
 
         $arr = array('codItemVenda' => $item->getCod_item_venda(),
                 'codProduto' => $item->getCod_produto(),

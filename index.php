@@ -132,7 +132,7 @@
 	<script>
 		function editar(codItem){
 			$.ajax({
-				url: "router.php",
+				url: "router.php?controller=item_venda&modo=editar",
 				type: "post",
 				data:{
 					cod: codItem
@@ -141,10 +141,61 @@
 					$("#mensagem").html("Aguarde... buscando");
 				}
 			})
-			.done(function(msg)){
-				$("#produto").value();
-				$("#qtde").value();
-			}
+			.done(function(itemVenda){
+                
+                //converte o json da requisição
+                let json = JSON.parse(itemVenda);
+                
+                //percorre a lista de option do select
+                $("#produto > option").each(function(){
+                    //pega o value do option
+                    let value = $(this).attr("value").toString();
+                    //converte de string para json
+                    let obj = JSON.parse(value || '{}');
+                    
+                    //se cod do option for igual ao codigo da requisição
+                    
+                    if(obj.cod == json.codProduto){
+                        //adiciona o atributo selected no option
+                        $(this).attr('selected','selected')
+                    }else{
+                        $(this).removeAttr('selected');
+                    }
+                });
+                
+                console.log(json.quantidade);
+                $("#qtde").val(json.quantidade);
+                
+                
+//                //passando o conteúdo da resposta para json
+//                console.log(itemVenda)
+//				let produto_editar = JSON.parse(itemVenda);
+//                // pegando o select de produto pelo id
+//                let slt_produtos = document.getElementById("produto");
+//                // pegando a lista de options do select
+//                let produtos = slt_produtos.options;
+//                let cont = 0;
+//                
+//                //percorre a lista de options
+//                for(let produto of produtos){
+//                    
+//                    //passando o value do option para json 
+//                    let produto_json = JSON.parse(produto.value || "[]");
+//                    
+//                    //se o codigo do option for igual
+//                    //ao codigo do produto vindo da requisição
+//                    
+//                    if(produto_json.cod == produto_editar.codProduto){
+//                        //seta como selecionado
+//                        slt_produtos.options[cont].selected = true;
+//                    }
+//                    cont++;
+//                }
+//            
+//                //seta a quantidade
+//                $("#qtde").val(produto_editar.quantidade);
+//                
+			});
 		}
 	</script>
 </body>
